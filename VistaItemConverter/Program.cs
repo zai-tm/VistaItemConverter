@@ -54,12 +54,6 @@ new Dictionary<string, string>()
     { @"Deco", @"\Media\Modifier\StadiumOnTerrain\Deco" },
     { @"DecoHill", @"\Media\Modifier\StadiumOnTerrain\DecoHill" },
     { @"DecoHill2", @"\Media\Modifier\StadiumOnTerrain\DecoHill2" },
-    { @"PlatformDirt_Deco", @"\Media\Modifier\StadiumOnTerrain\Deco" },
-    { @"PlatformDirt_DecoHill", @"\Media\Modifier\StadiumOnTerrain\DecoHill" },
-    { @"PlatformDirt_DecoHill2", @"\Media\Modifier\StadiumOnTerrain\DecoHill2" },
-    { @"PlatformIce_Deco", @"\Media\Modifier\StadiumOnTerrain\Deco" },
-    { @"PlatformIce_DecoHill", @"\Media\Modifier\StadiumOnTerrain\DecoHill" },
-    { @"PlatformIce_DecoHill2", @"\Media\Modifier\StadiumOnTerrain\DecoHill2" },
     { @"TrackWallClips", @"\Media\Modifier\StadiumOnTerrain\TrackWallClipsInWorld" },
     { @"TrackBorders", @"\Media\Modifier\StadiumOnTerrain\TrackBordersInWorld" },
     { @"TrackBordersOff", @"\Media\Modifier\StadiumOnTerrain\TrackBordersOffInWorld" },
@@ -115,7 +109,6 @@ foreach (string vista in vistas)
                 {
                     if (!vistasMaterialsMapping.ContainsKey(material.MaterialUserInst.Link)) continue;
                     material.MaterialUserInst.IsUsingGameMaterial = true;
-                    material.MaterialUserInst.Link = vista + vistasMaterialsMapping[material.MaterialUserInst.Link];
                     if (material.MaterialUserInst.Link.Contains("Deco"))
                     {
                         if (
@@ -147,12 +140,13 @@ foreach (string vista in vistas)
                         {
                             if (material.MaterialUserInst.Link.Contains("DecoHill2"))
                             {
-                                material.MaterialUserInst.Link = material.MaterialUserInst.Link.Replace("DecoHill2", "Penalty");
+                                if (material.MaterialUserInst.Link == "DecoHill2") material.MaterialUserInst.Link = @"Stadium\Media\Material\Penalty";
+                                else material.MaterialUserInst.Link = material.MaterialUserInst.Link.Replace("DecoHill2", "Penalty");
+                                continue;
                             }
                         }
-                        
                     }
-
+                    material.MaterialUserInst.Link = vista + vistasMaterialsMapping[material.MaterialUserInst.Link];
                 }
                 item.Save(savePath);
                 Console.WriteLine(savePath);
