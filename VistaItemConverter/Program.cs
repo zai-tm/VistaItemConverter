@@ -114,6 +114,7 @@ foreach (string vista in vistas)
                 foreach (CPlugSolid2Model.Material material in importedItem.StaticObject.Mesh.CustomMaterials)
                 {
                     if (!vistasMaterialsMapping.ContainsKey(material.MaterialUserInst.Link)) continue;
+                    material.MaterialUserInst.IsUsingGameMaterial = true;
                     material.MaterialUserInst.Link = vista + vistasMaterialsMapping[material.MaterialUserInst.Link];
                     if (material.MaterialUserInst.Link.Contains("Deco"))
                     {
