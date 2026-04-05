@@ -146,6 +146,10 @@ foreach (string vista in vistas)
                             }
                         }
                     }
+                    if (material.MaterialUserInst.Link.Contains("TrackWall"))
+                    {
+                        material.MaterialUserInst.SurfacePhysicId = CPlugSurface.MaterialId.Concrete;
+                    }
                     material.MaterialUserInst.Link = vista + vistasMaterialsMapping[material.MaterialUserInst.Link];
                 }
                 item.Save(savePath);
